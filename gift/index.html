@@ -6,7 +6,7 @@
     <title>For You ❤️</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400&family=Kalam:wght@400&display=swap" rel="stylesheet">
     <style>
         /* --- Basic Setup & Vibe --- */
         body {
@@ -27,14 +27,19 @@
         h1, h2 { font-family: 'Playfair Display', serif; color: #d18c68; font-weight: 700; }
         h1 { font-size: clamp(2.5rem, 6vw, 4rem); margin-bottom: 0.5rem; }
         h2 { font-size: clamp(1.5rem, 4vw, 2.2rem); margin-top: 3rem; margin-bottom: 1.5rem; border-bottom: 1px solid #e0e0e0; padding-bottom: 0.5rem; }
-        p { font-size: 1.1rem; line-height: 1.6; max-width: 600px; margin: 0 auto 2rem auto; }
+        p { font-size: 1.1rem; line-height: 1.6; max-width: 600px; margin: 0 auto 1rem auto; }
+        header p { margin-bottom: 0.5rem; }
+
+        /* --- Name Prompt Section --- */
+        .name-prompt { margin-top: 1.5rem; margin-bottom: 2rem; }
+        .name-prompt input { padding: 10px 15px; border: 1px solid #ddd; border-radius: 20px; font-family: 'Poppins', sans-serif; font-size: 1rem; margin-right: 0.5rem; outline: none; transition: border-color 0.3s ease; }
+        .name-prompt input:focus { border-color: #d18c68; }
+        .name-prompt button { padding: 10px 20px; border: none; border-radius: 20px; background-color: #a3b18a; color: white; font-size: 1rem; cursor: pointer; transition: background-color 0.3s ease; }
+        .name-prompt button:hover { background-color: #8f9d78; }
+        #responseMessage { margin-top: 1rem; font-size: 1.1rem; color: #d18c68; font-weight: bold; height: 20px; transition: opacity 0.5s ease; }
 
         /* --- Flip Card Section ("Our Adventures") --- */
-        .adventures-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
+        .adventures-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
         .flip-card { background-color: transparent; min-height: 220px; perspective: 1000px; cursor: pointer; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 4px; }
         .flip-card.is-flipped .flip-card-inner { transform: rotateY(180deg); }
@@ -44,49 +49,32 @@
         .flip-card-back img { width: 100%; height: 100%; object-fit: cover; }
 
         /* --- Songs Section --- */
-        .songs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        .song-embed iframe {
-            width: 100%;
-            height: 180px;
-            border-radius: 12px;
-            border: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
+        .songs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+        .song-embed iframe { width: 100%; height: 180px; border-radius: 12px; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
 
-        /* --- Countdown Section --- */
-        .countdown-section {
-            background-color: #ffffff;
-            padding: 2rem;
+        /* --- NEW: Special Note Section --- */
+        .note-section {
+            background-color: #fffef7;
+            padding: 2.5rem;
             margin-top: 3rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-        #countdown {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            font-family: 'Playfair Display', serif;
-        }
-        .time-block {
-            background-color: #fdf8f5;
-            padding: 1rem;
             border-radius: 8px;
-            min-width: 80px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-left: 5px solid #d18c68;
         }
-        .time-block .number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #d18c68;
+        .note-section .note-text {
+            font-family: 'Kalam', cursive; /* A handwritten-style font */
+            font-size: 1.4rem;
+            line-height: 1.8;
+            color: #5c5c5c;
+            text-align: left;
         }
-        .time-block .label {
-            font-size: 0.9rem;
-            color: #888;
-            margin-top: 0.25rem;
+        .note-section .signature {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            text-align: right;
+            margin-top: 2rem;
+            font-size: 1.2rem;
+            color: #a08270;
         }
 
         /* --- Footer --- */
@@ -97,7 +85,14 @@
 
     <div class="container">
         <header>
-            <h1>For YOU</h1>
+            <h1>Eta ke dekhchhe ?</h1>
+            <div class="name-prompt">
+                <div>
+                    <input type="text" id="nameInput" placeholder="Tomar naam lekho...">
+                    <button id="enterBtn">Enter</button>
+                </div>
+                <p id="responseMessage"></p>
+            </div>
             <p>Happy Girlfriend's Day!</p>
             <p>kemon hoyechhe ? Ha ha.</p>
         </header>
@@ -105,11 +100,11 @@
         <main>
             <!-- Our Adventures Section -->
             <section>
-                <h2>Amader khutinati (Click a card!)</h2>
+                <h2>Egulo dekh dekh (Click a card!)</h2>
                 <div class="adventures-grid">
-                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front">Eta hochhe Baire</div><div class="flip-card-back"><img src="static/baire.png" alt="A happy memory"></div></div></div>
-                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front">Eta hochhe Ghore</div><div class="flip-card-back"><img src="static/ghore.jpeg" alt="A cozy moment"></div></div></div>
-                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front">Kota Baje ?</div><div class="flip-card-back"><img src="static/surprise.gif" alt="A silly face"></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front">Eta hochhe Baire</div><div class="flip-card-back"><img src="../static/baire.png" alt="A happy memory"></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front">Eta hochhe Ghore</div><div class="flip-card-back"><img src="../static/ghore.jpeg" alt="A cozy moment"></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front">Kota Baje ?</div><div class="flip-card-back"><img src="../static/surprise.gif" alt="A silly face"></div></div></div>
                 </div>
             </section>
 
@@ -117,22 +112,24 @@
             <section>
                 <h2>Our Playlist</h2>
                 <div class="songs-grid">
-                    <!-- TODO: Replace these with your own songs! -->
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/bYqPJaq-BdY?si=av_NRF6u51p1GNCT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    <div class="song-embed"><iframe src="https://youtu.be/RLxsSDaEbaA" title="YouTube video player" allowfullscreen></iframe></div>
-                    <div class="song-embed"><iframe src="https://www.youtube.com/embed/PEM0Vs8jf1w" title="YouTube video player" allowfullscreen></iframe></div>
+                    <div class="song-embed"><iframe width="560" height="315" src="https://www.youtube.com/embed/bYqPJaq-BdY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+                    <div class="song-embed"><iframe src="https://www.youtube.com/embed/RLxsSDaEbaA" title="YouTube video player" allowfullscreen></iframe></div>
+                    <div class="song-embed"><iframe src="https://music.youtube.com/embed/XBIfb8nOHiY" title="YouTube video player" allowfullscreen></iframe></div>
                 </div>
             </section>
 
-            <!-- Countdown Section -->
-            <section class="countdown-section">
-                <h2>Countdown to Our Next Adventure</h2>
-                <!-- TODO: Change the date in the script below to your special date! -->
-                <div id="countdown">
-                    <div class="time-block"><div id="days" class="number">0</div><div class="label">Days</div></div>
-                    <div class="time-block"><div id="hours" class="number">0</div><div class="label">Hours</div></div>
-                    <div class="time-block"><div id="minutes" class="number">0</div><div class="label">Minutes</div></div>
-                    <div class="time-block"><div id="seconds" class="number">0</div><div class="label">Seconds</div></div>
+            <!-- A Special Note Section -->
+            <section class="note-section">
+                <h2>A Special Note For You</h2>
+                <div>
+                    <!-- TODO: Write your own personal note here! -->
+                    <p class="note-text">
+                        Eto kichhu achhe je likhbo bujhtei parchhi na. Ha ha.
+                    </p>
+                    <p class="signature">
+                        With all my love, <br>
+                        - Ekjon
+                    </p>
                 </div>
             </section>
         </main>
@@ -144,6 +141,25 @@
 
     <!-- JavaScript for all interactive elements -->
     <script>
+        // --- Name Prompt Logic ---
+        const nameInput = document.getElementById('nameInput');
+        const enterBtn = document.getElementById('enterBtn');
+        const responseMessage = document.getElementById('responseMessage');
+
+        function showResponse() {
+            const name = nameInput.value.trim();
+            if (name) {
+                responseMessage.textContent = 'ha ha';
+            }
+        }
+        enterBtn.addEventListener('click', showResponse);
+        nameInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                showResponse();
+            }
+        });
+
         // --- Flip Card Logic ---
         document.querySelectorAll('.flip-card').forEach(card => {
             card.addEventListener('click', () => {
@@ -151,25 +167,7 @@
             });
         });
 
-        // --- Countdown Logic ---
-        // TODO: CHANGE THIS DATE to your special date! Format: "Month Day, Year HH:MM:SS"
-        const countdownDate = new Date("Dec 25, 2025 00:00:00").getTime();
-
-        const countdownFunction = setInterval(() => {
-            const now = new Date().getTime();
-            const distance = countdownDate - now;
-
-            // Time calculations
-            document.getElementById('days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
-            document.getElementById('hours').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            document.getElementById('minutes').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            document.getElementById('seconds').innerText = Math.floor((distance % (1000 * 60)) / 1000);
-
-            if (distance < 0) {
-                clearInterval(countdownFunction);
-                document.getElementById('countdown').innerHTML = "<h2>The adventure begins!</h2>";
-            }
-        }, 1000);
+        // --- Countdown logic has been removed ---
     </script>
 
 </body>
