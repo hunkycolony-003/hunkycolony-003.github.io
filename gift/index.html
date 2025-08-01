@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
     <style>
+        /* --- Basic Setup & Vibe --- */
         body {
             background-color: #fdf8f5;
             font-family: 'Poppins', sans-serif;
@@ -19,55 +20,157 @@
             align-items: center;
             text-align: center;
         }
+
         .container { max-width: 900px; width: 100%; }
+
+        /* --- Typography --- */
         h1, h2 { font-family: 'Playfair Display', serif; color: #d18c68; font-weight: 700; }
         h1 { font-size: clamp(2.5rem, 6vw, 4rem); margin-bottom: 0.5rem; }
         h2 { font-size: clamp(1.5rem, 4vw, 2.2rem); margin-top: 3rem; margin-bottom: 1.5rem; border-bottom: 1px solid #e0e0e0; padding-bottom: 0.5rem; }
         p { font-size: 1.1rem; line-height: 1.6; max-width: 600px; margin: 0 auto 2rem auto; }
-        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem; }
-        .polaroid { background: white; padding: 1rem; padding-bottom: 2.5rem; border-radius: 4px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); transition: transform 0.3s ease-in-out, box-shadow 0.3s ease; position: relative; }
-        .polaroid:hover { transform: scale(1.05) rotate(var(--rotation, 2deg)); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12); z-index: 10; }
-        .polaroid:nth-child(2) { --rotation: -3deg; }
-        .polaroid:nth-child(3) { --rotation: 4deg; }
-        .polaroid img { width: 100%; height: 200px; object-fit: cover; display: block; }
-        .polaroid .caption { font-family: 'Playfair Display', serif; font-size: 1rem; color: #555; margin-top: 1rem; position: absolute; bottom: 1rem; left: 1rem; right: 1rem; }
-        .song-section { margin-top: 3rem; padding: 2rem; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
-        .song-section iframe { border-radius: 12px; border: none; width: 100%; max-width: 500px; height: 152px; }
-        .notes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
-        .note { background-color: #fffde7; padding: 1.5rem; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.2s ease; }
-        .note:hover { transform: translateY(-5px); }
+
+        /* --- Flip Card Section ("Our Adventures") --- */
+        .adventures-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        .flip-card { background-color: transparent; min-height: 220px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 4px; }
+        .flip-card.is-flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 4px; display: flex; justify-content: center; align-items: center; padding: 1.5rem; box-sizing: border-box; }
+        .flip-card-front { background-color: #e3f2fd; font-family: 'Playfair Display', serif; font-size: 1.2rem; line-height: 1.5; color: #3e5062; }
+        .flip-card-back { background-color: #333; transform: rotateY(180deg); overflow: hidden; }
+        .flip-card-back img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* --- Songs Section --- */
+        .songs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .song-embed iframe {
+            width: 100%;
+            height: 180px;
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        /* --- Countdown Section --- */
+        .countdown-section {
+            background-color: #ffffff;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        #countdown {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+        .time-block {
+            background-color: #fdf8f5;
+            padding: 1rem;
+            border-radius: 8px;
+            min-width: 80px;
+        }
+        .time-block .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #d18c68;
+        }
+        .time-block .label {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 0.25rem;
+        }
+
+        /* --- Footer --- */
         footer { margin-top: 4rem; font-size: 0.9rem; color: #aaa; }
     </style>
 </head>
 <body>
+
     <div class="container">
         <header>
-            <h1>For My Love</h1>
-            <p>A little collection of some of my favorite moments with you. Happy Girlfriend's Day!</p>
+            <h1>For YOU</h1>
+            <p>Happy Girlfriend's Day!</p>
+            <p>kemon hoyechhe ? Ha ha.</p>
         </header>
+
         <main>
+            <!-- Our Adventures Section -->
             <section>
-                <h2>Our Adventures</h2>
-                <div class="gallery">
-                    <div class="polaroid" style="--rotation: 2deg;"><img src="https://placehold.co/400x400/d18c68/ffffff?text=Our+First+Date" alt="A memorable moment"><p class="caption">The day it all started.</p></div>
-                    <div class="polaroid" style="--rotation: -3deg;"><img src="https://placehold.co/400x400/a3b18a/ffffff?text=That+Funny+Time" alt="A memorable moment"><p class="caption">Laughing until it hurt.</p></div>
-                    <div class="polaroid" style="--rotation: 1deg;"><img src="https://placehold.co/400x400/6b7b8c/ffffff?text=Favorite+Trip" alt="A memorable moment"><p class="caption">Exploring together.</p></div>
+                <h2>Amader khutinati (Click a card!)</h2>
+                <div class="adventures-grid">
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front">Eta hochhe Baire</div><div class="flip-card-back"><img src="static/baire.png" alt="A happy memory"></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front">Eta hochhe Ghore</div><div class="flip-card-back"><img src="static/ghore.jpeg" alt="A cozy moment"></div></div></div>
+                    <div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front">Kota Baje ?</div><div class="flip-card-back"><img src="static/surprise.gif" alt="A silly face"></div></div></div>
                 </div>
             </section>
-            <section class="song-section">
-                <h2>Our Song</h2>
-                <iframe src="https://open.spotify.com/embed/track/4cOdK2wGLETKBW3PvgPWqT?utm_source=generator" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-            </section>
+
+            <!-- Our Playlist Section -->
             <section>
-                <h2>A Few Reasons Why...</h2>
-                <div class="notes-grid">
-                    <div class="note">"You have the most amazing laugh."</div>
-                    <div class="note">"You always know how to make me feel better after a long day."</div>
-                    <div class="note">"I love that we can just be ourselves around each other."</div>
+                <h2>Our Playlist</h2>
+                <div class="songs-grid">
+                    <!-- TODO: Replace these with your own songs! -->
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/bYqPJaq-BdY?si=av_NRF6u51p1GNCT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <div class="song-embed"><iframe src="https://youtu.be/RLxsSDaEbaA" title="YouTube video player" allowfullscreen></iframe></div>
+                    <div class="song-embed"><iframe src="https://www.youtube.com/embed/PEM0Vs8jf1w" title="YouTube video player" allowfullscreen></iframe></div>
+                </div>
+            </section>
+
+            <!-- Countdown Section -->
+            <section class="countdown-section">
+                <h2>Countdown to Our Next Adventure</h2>
+                <!-- TODO: Change the date in the script below to your special date! -->
+                <div id="countdown">
+                    <div class="time-block"><div id="days" class="number">0</div><div class="label">Days</div></div>
+                    <div class="time-block"><div id="hours" class="number">0</div><div class="label">Hours</div></div>
+                    <div class="time-block"><div id="minutes" class="number">0</div><div class="label">Minutes</div></div>
+                    <div class="time-block"><div id="seconds" class="number">0</div><div class="label">Seconds</div></div>
                 </div>
             </section>
         </main>
-        <footer><p>Made with ❤️ for you.</p></footer>
+
+        <footer>
+            <p>Made with ❤️ for you.</p>
+        </footer>
     </div>
+
+    <!-- JavaScript for all interactive elements -->
+    <script>
+        // --- Flip Card Logic ---
+        document.querySelectorAll('.flip-card').forEach(card => {
+            card.addEventListener('click', () => {
+                card.classList.toggle('is-flipped');
+            });
+        });
+
+        // --- Countdown Logic ---
+        // TODO: CHANGE THIS DATE to your special date! Format: "Month Day, Year HH:MM:SS"
+        const countdownDate = new Date("Dec 25, 2025 00:00:00").getTime();
+
+        const countdownFunction = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            // Time calculations
+            document.getElementById('days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+            document.getElementById('hours').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById('minutes').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById('seconds').innerText = Math.floor((distance % (1000 * 60)) / 1000);
+
+            if (distance < 0) {
+                clearInterval(countdownFunction);
+                document.getElementById('countdown').innerHTML = "<h2>The adventure begins!</h2>";
+            }
+        }, 1000);
+    </script>
+
 </body>
 </html>
